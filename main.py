@@ -209,7 +209,8 @@ Input metrics:
 # -----------------------------
 # Run MCP
 # -----------------------------
-initialise_db()
+
 
 if __name__ == "__main__":
-    mcp.run()
+    initialise_db()
+    mcp.run(transport='http',host='0.0.0.0',port=8002)
