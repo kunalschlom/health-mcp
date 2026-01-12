@@ -18,11 +18,12 @@ import langchain_core
 import langchain_huggingface 
 from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint, HuggingFaceEmbeddings
 import os 
-
+load_dotenv()
 
 def create_model():
     
-   hf_token="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"
+   hf_token=os.getenv("HF_TOKEN")
+   print (hf_token)
    if not hf_token:
         raise ValueError("the hf token is not available")   
    repo_id="Qwen/Qwen2.5-7B-Instruct"     
