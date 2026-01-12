@@ -35,7 +35,7 @@ def create_model():
    model=ChatHuggingFace(llm=llm)
 
    return model 
-model=create_model()
+
 
 # -----------------------------
 # Initialize MCP
@@ -182,7 +182,8 @@ Confidence:
 
 Input metrics:
 {data}
-"""
+""" 
+    model=create_model()
     response = await model.ainvoke(prompt)
     text = response.content
     clean = re.sub(r"```json|```", "", text).strip()
