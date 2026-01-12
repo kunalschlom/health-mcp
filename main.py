@@ -10,22 +10,9 @@ from dotenv import load_dotenv
 # LangChain + HuggingFace LLM setup
 import langchain_huggingface
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
-
+from model_creato import create_model
 load_dotenv()
-
-def create_model():
-    hf_token = os.getenv("HF_TOKEN")
-    if not hf_token:
-        raise ValueError("HF_TOKEN not set in .env")
-    
-    repo_id = "Qwen/Qwen2.5-7B-Instruct"
-    llm = HuggingFaceEndpoint(
-        repo_id=repo_id,
-        huggingfacehub_api_token=hf_token,
-        task="conversational"
-    )
-    model = ChatHuggingFace(llm=llm)
-    return model
+model=create_model()
 
 # -----------------------------
 # Initialize MCP
@@ -149,8 +136,6 @@ async def health_signal(date: str):
 
     data = dict(row)
 
-    # Build AI prompt
-    model = create_model()
     prompt = f"""
 You are a health & wellbeing analyzer.
 
@@ -175,7 +160,7 @@ Confidence:
 Input metrics:
 {data}
 """
-    response = model.invoke(prompt)
+    response = await model.ainvoke(prompt)
     text = response.content
     clean = re.sub(r"```json|```", "", text).strip()
     output = json.loads(clean)
