@@ -84,7 +84,7 @@ async def add_health_data(
     sleep_hours: float,
     breaks_taken: int,
     steps_taken: int,
-    self_fatigue: int,
+    self_reported_fatigue: int,
     date: str
 ):
     """
@@ -107,7 +107,7 @@ async def add_health_data(
         (sleep_hours, breaks_taken, steps_taken, self_reported_fatigue, date)
         VALUES ($1,$2,$3,$4,$5)
         """,
-        sleep_hours, breaks_taken, steps_taken, self_fatigue, date
+        sleep_hours, breaks_taken, steps_taken, self_reported_fatigue, date
     )
 
     await conn.close()
